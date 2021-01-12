@@ -7,7 +7,7 @@
     top: calc(50% - 165px - 20.3px);
     margin:0;
     padding: 0;
-    background: url('../../../images/CloseIcon.png') no-repeat;
+    background: url('../../../images/CloseIcon.svg') no-repeat;
     background-size: contain;
     border:none;
     transition: 3s;
