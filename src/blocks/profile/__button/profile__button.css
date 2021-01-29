@@ -6,7 +6,7 @@
   padding: 0;*/
   border:none;
   transition: 3s; 
-  background: url('../../../images/EditButton.svg') no-repeat;
+  background: url('../../../images/EditButton.png') no-repeat;
   background-position: center;
   cursor: pointer;
 }
