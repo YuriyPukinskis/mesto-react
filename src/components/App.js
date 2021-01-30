@@ -4,7 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import {api} from '../utils/Api';
+import {api} from '../utils/api';
 import {CurrentUserContext} from'../contexts/CurrentUserContext';
 import {CardContext} from'../contexts/CardContext';
 import EditProfilePopup from './EditProfilePopup';
@@ -13,7 +13,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 function App() {
 
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({avatar:'',about:'',name:'',_id:''});
   
 
   
@@ -26,7 +26,7 @@ function App() {
   const [userDescription,setUserDescription]=useState('');
   const [userAvatar,setUserAvatar]=useState('');
   const [myId,setMyId]=useState('');
-  const [selectedCard,setSelectedCard]=useState('');
+  const [selectedCard,setSelectedCard]=useState({name: '', link: ''});;
 
   const [cards,setCards]=useState([]);
 
@@ -62,6 +62,9 @@ function App() {
             })
             setCards(card) 
             })
+          .catch((err) => {
+            console.log(err); 
+          });
       }
   }, [null])
 
@@ -83,7 +86,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsBigImageOpen(false);
-    // setSelectedCard(undefined);
+    setSelectedCard({name: '', link: ''})
   }
 
   function handleUpdateUser(data) {
@@ -92,22 +95,32 @@ function App() {
         setCurrentUser(updatedUser);
         closeAllPopups();
       })
+      .catch((err) => {
+        console.log(err); 
+      });
   }
 
   function handleUpdateAvatar(data) {
     api.postAvatarToServer(data.avatar)
-      .then(()=>{
-        setUserAvatar(data.avatar);
+      .then((updatedUser)=>{
+        setCurrentUser(updatedUser);
         closeAllPopups()
       })
+      .catch((err) => {
+        console.log(err); 
+      });
   }
 
   function handleApploadCard(data) {
     api.postCardToServer(data.name,data.url)
       .then((newCard)=>{
-        setCards([newCard, ...cards]); 
+        const newCardToPage = prepareCard(newCard)
+        setCards([newCardToPage, ...cards]); 
         closeAllPopups()
       })
+      .catch((err) => {
+        console.log(err); 
+      });
   }
 
   
@@ -119,6 +132,9 @@ function App() {
         const newCardToArr=prepareCard(newCard)
         const newCards = cards.map((c) => c.cardId === card.cardId ? newCardToArr : c);
         setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err); 
       });
     }else{
       api.dislikeCardOnServer(card.cardId)
@@ -126,14 +142,21 @@ function App() {
         const newCardToArr=prepareCard(newCard)
         const newCards = cards.map((c) => c.cardId === card.cardId ? newCardToArr : c);
         setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err); 
       });
     }
     
   } 
   function handleCardDelete(card) {
-    api.deleteCardFromServer(card.cardId).then((newCard) => {
+    api.deleteCardFromServer(card.cardId)
+    .then(() => {
       const newCards = cards.filter((c) => c.cardId !== card.cardId);
       setCards(newCards);
+    })
+    .catch((err) => {
+      console.log(err); 
     });
   } 
 
@@ -142,31 +165,18 @@ function App() {
       <CardContext.Provider value={setCards}>
     <div>
     <div className="page">
-    
-    <Header />
-    <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}  onEditAvatar={handleEditAvatarClick} handleCardClick={handleCardClick}
-          userAvatar={userAvatar} userName={userName} userDescription={userDescription} cards={cards} myId={myId}
-          onCardClick={setSelectedCard} selectedCard={selectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} /> 
-    
-    <Footer />
-    
-    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} /> 
-    <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-    <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onApploadCard={handleApploadCard}/>
+      <Header />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}  onEditAvatar={handleEditAvatarClick} handleCardClick={handleCardClick}
+            userAvatar={userAvatar} userName={userName} userDescription={userDescription} cards={cards} myId={myId}
+            onCardClick={setSelectedCard} selectedCard={selectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} /> 
+      <Footer />
+      
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} /> 
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onApploadCard={handleApploadCard}/>
 
-    <ImagePopup card={selectedCard} isOpen={true} isBigImageOpen={isBigImageOpen} onClose={closeAllPopups}  />
+      <ImagePopup card={selectedCard} isOpen={true} isBigImageOpen={isBigImageOpen} onClose={closeAllPopups}  />
   </div>
-
-  
-  <div className="popup delete-popup">
-    <form className="popup__container delete-container">
-      <h2 className="popup__title">Вы уверены?</h2>
-      <button className="popup__button place-delete" type="submit" name="delete-submit">Да</button>
-      <button className="popup__close delete-close" type="button" />
-    </form>
-  </div>
-  
-  
   </div>
   </CardContext.Provider>
   </CurrentUserContext.Provider>

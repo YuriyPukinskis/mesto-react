@@ -28,8 +28,8 @@ export default function EditProfilePopup(props){
   const currentUser = React.useContext(CurrentUserContext);
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setName(currentUser.name || '');
+    setDescription(currentUser.about || '');
   }, [currentUser]); 
   return(
     <PopupWithForm name="profile-popup" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>

@@ -35,7 +35,7 @@ export default function Main(props) {
         <section className="elements">
           {Array.prototype.map.call(props.cards, function(item,index){
             return(
-              <Card key={index} card={item} myId={props.myId} onCardClick={props.onCardClick} handleCardClick={props.handleCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>
+              <Card key={item.cardId} card={item} myId={props.myId} onCardClick={props.onCardClick} handleCardClick={props.handleCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>
             )
           })}
         </section>

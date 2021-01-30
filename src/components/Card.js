@@ -21,16 +21,16 @@ export default function Card(props){
       </div>
     </div>
   )
-}
 
-function handleClick(props) {
-  props.handleCardClick();
-  props.onCardClick(props.card);
-} 
-
-function handleLikeClick(props) {
-  props.onCardLike(props.card);
-} 
-function handleDeleteClick(props) {
-  props.onCardDelete(props.card);
+  function handleClick(props) {
+    props.handleCardClick();
+    props.onCardClick(props.card);
+  } 
+  
+  function handleLikeClick(props) {
+    props.onCardLike(props.card);
+  } 
+  function handleDeleteClick(props) {
+    props.onCardDelete(props.card);
+  }
 }
