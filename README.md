@@ -1,27 +1,35 @@
-# Название
-Практическая работа с использованием React
+# Практическая работа с использованием React
 
-# Описание
-работа представляет собой одностраничник, на котором находятся загружаемые с сервера карточки. Работа выполненнна с помощью инструментария React
+## Описание
+Работа представляет собой одностраничник, на котором находятся загружаемые с сервера карточки. В рамках данной работы изучены возможности, предоставляемые инструментарием ReactJS. Реализована возможность проставления лайка карточки и изменения данных пользователя
 
-# Стек
+## Стек
 HTML CSS JavaScript
+* Адаптивная вёрстка
+* Вёрстка попапа
+* Работа с формами
+* Валидация форм
+* Работа с массивами
+* Работа с объектами
 
-# Инструкция по развёртыванию и системные требования
+## Инструкция по развёртыванию и системные требования
 HTML5 CSS3 JavaScript1.8 
+Для запуска проекта необходимо:
+1) Скачать архив с файлми прокта
+2) Разархивировать его
+3) Перейти в соответствующую директорию
+4) Установить зависимости
+5) Запустить приложение
 
-# Статус
-Завершено
-
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -54,7 +62,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -87,4 +95,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # mesto-react
 >>>>>>> c7f3fe8da060264997468180f191553bda866f75
 
-
+## Статус
+![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) **`Завершен`**
